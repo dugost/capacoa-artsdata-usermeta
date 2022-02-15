@@ -5,10 +5,12 @@ This is a Wordpress plugin that adds additional fields of User metadata to the W
 This plug-is for CAPACOA only.
 
 Here is an example call to get a list of 50 users:
-GET /wp-json/wp/v2/users?per_page=50
+
+`GET /wp-json/wp/v2/users?per_page=50`
 
 Here is an example JSON output for user id: "25" in the test environment http://test.capacoa.ca
-  "usermeta": {
+```
+"usermeta": {
       "operating_name1": "The Test Arts Centre",
       "operating_name1_language": "en",
       "operating_name2": "Le Centre des arts bidon",
