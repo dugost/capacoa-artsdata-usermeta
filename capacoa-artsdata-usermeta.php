@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: CAPACOA Artsdata User Meta
+Plugin Name: CAPACOA Usermeta for Arsdata
 Version: 1.0
 Description: This is a Wordpress plugin that enables WP meta data so CAPACOA member organizations can be uploaded to Artsdata.
 Author: Culture Creates
