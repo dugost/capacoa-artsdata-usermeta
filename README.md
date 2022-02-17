@@ -17,7 +17,7 @@ Here is an example JSON output for user id: "25" in the test environment http://
       "operating_name2_language": "fr",
       "legal_name": "THIS IS NOT REAL INC.",
       "legal_name_language": "en",
-      "also_know_as": "TTAC",
+      "also_known_as": "TTAC",
       "business_number": "123456789",
       "legal_form": "Municipal corporation",
       "charitable_status": "Not a charitable organization",
