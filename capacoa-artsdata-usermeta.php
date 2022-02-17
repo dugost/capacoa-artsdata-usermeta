@@ -30,7 +30,7 @@ function get_user_meta_for_restapi($user, $field_name, $request) {
 		'operating_name2_language' => $userObj->operating_name2_language,
 		'legal_name' => $userObj->legal_name,
 		'legal_name_language' => $userObj->legal_name_language,
-    'also_know_as' => $userObj->also_known_as,
+    'also_known_as' => $userObj->also_known_as,
 		'business_number' => $userObj->business_number,
 		'legal_form' => $userObj->legal_form,
 		'charitable_status' => $userObj->charitable_status,
