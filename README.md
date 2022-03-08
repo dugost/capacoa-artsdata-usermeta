@@ -2,7 +2,7 @@
 
 This is a Wordpress plugin that adds additional fields to the WP REST User API so CAPACOA member organizations can be uploaded to Artsdata.
 
-This plug-in is for CAPACOA only.
+This plugin is for CAPACOA only.
 
 Here is an example call to get a list of 50 users:
 
