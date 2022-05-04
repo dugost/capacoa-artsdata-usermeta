@@ -46,7 +46,7 @@ function get_user_meta_for_restapi($user, $field_name, $request) {
     'venue_other_name' => $userObj->venue_other_name,
     'venue_other_relationship' => $userObj->venue_other_relationship,
     'wikidata_id_venue_other' => $userObj->wikidata_id_venue_other,
-    'terms_conditions_v1_0' => $userObj->terms_conditions_v1_0,
+    'terms_conditions' => $userObj->terms_conditions,
     'pmpro_bcountry' => $userObj->pmpro_bcountry,
     'pmpro_bcity' => $userObj->pmpro_bcity,
     'pmpro_bstate' => $userObj->pmpro_bstate,
