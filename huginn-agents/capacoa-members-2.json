@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
   "name": "CAPACOA Members",
-  "description": "Agents to extract, load and transform data from the CAPACOA WP user API",
+  "description": "No description provided",
   "source_url": false,
   "guid": "841e9760198305f7520215831f9cddbd",
   "tag_fg_color": "#ffffff",
   "tag_bg_color": "#5bc0de",
   "icon": "gear",
-  "exported_at": "2022-03-08T13:59:52Z",
+  "exported_at": "2022-05-31T17:12:40Z",
   "agents": [
     {
       "type": "Agents::JavaScriptAgent",
@@ -50,7 +50,7 @@
       "disabled": false,
       "guid": "2ae27b1050906556209c4c88ebe00d3f",
       "options": {
-        "post_url": "http://db.artsdata.ca/repositories/raw/statements",
+        "post_url": "http://99.79.129.47/repositories/raw/statements",
         "expected_receive_period_in_days": "1",
         "content_type": "form",
         "method": "post",
@@ -77,27 +77,13 @@
       "guid": "33a2e521a98157d1cffd5684fed97bc3",
       "options": {
         "language": "JavaScript",
-        "code": "let files = ['specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-split-categories','specific/capacoa-make-skos-categories','remove-blanks','reconcile-orgs'];\r\nAgent.receive = function() {\r\n  var events = this.incomingEvents();\r\n  for(var i = 0; i < files.length; i++) {\r\n    this.createEvent({ 'file_name': files[i], 'graph_name': events[0].payload.graph_name });\r\n  }\r\n}\r\n",
+        "code": "let files = ['remove-blanks','reconcile-orgs'];\r\nAgent.receive = function() {\r\n  var events = this.incomingEvents();\r\n  for(var i = 0; i < files.length; i++) {\r\n    this.createEvent({ 'file_name': files[i], 'graph_name': events[0].payload.graph_name });\r\n  }\r\n}\r\n",
         "expected_receive_period_in_days": "265",
         "expected_update_period_in_days": "265"
       },
       "schedule": "never",
-      "keep_events_for": 3600,
+      "keep_events_for": 604800,
       "propagate_immediately": true
-    },
-    {
-      "type": "Agents::EventFormattingAgent",
-      "name": "Generic Provenance Entry Point w/ Time Stamp 'generatedAtTime' for Raw repository",
-      "disabled": false,
-      "guid": "4d0cb0b9484a4e8e8123402878396414",
-      "options": {
-        "instructions": {
-          "generatedAtTime": "{{ created_at | date: \"%Y-%m-%dT%H:%M:%S-08:00\" }}"
-        },
-        "mode": "merge"
-      },
-      "keep_events_for": 3600,
-      "propagate_immediately": false
     },
     {
       "type": "Agents::JavaScriptAgent",
@@ -112,6 +98,21 @@
       },
       "schedule": "never",
       "keep_events_for": 3600,
+      "propagate_immediately": false
+    },
+    {
+      "type": "Agents::JavaScriptAgent",
+      "name": "Drop Wikidata for CAPACOA members",
+      "disabled": false,
+      "guid": "52d1d3a95d6cae56b5f062902d17738f",
+      "options": {
+        "language": "JavaScript",
+        "code": "let files = ['drop-graph'];\r\nAgent.receive = function() {\r\n  var events = this.incomingEvents();\r\n  for(var i = 0; i < files.length; i++) {\r\n    this.createEvent({ 'file_name': files[i], 'graph_name': 'http://wikidata.org/capacoa-members' });\r\n  }\r\n}\r\n",
+        "expected_receive_period_in_days": "265",
+        "expected_update_period_in_days": "265"
+      },
+      "schedule": "6am",
+      "keep_events_for": 3600,
       "propagate_immediately": true
     },
     {
@@ -121,12 +122,12 @@
       "guid": "68e14510d96ed39197bed6a31a4a334d",
       "options": {
         "language": "JavaScript",
-        "code": "Agent.receive = function() {\r\n  this.createEvent({ \r\n    'graph_name': 'http://huginn.culturecreates.com/capacoa-members',\r\n    'name': 'CAPACOA Members',\r\n    'url': 'https://test.capacoa.ca',\r\n    'wasAttributedToToolUri': 'adr:K1-9',\r\n    'wasAttributedToOrgUri': 'adr:K1-5',\r\n    'wasDerivedFromUri': 'https://huginn-staging.herokuapp.com/scenarios/11/diagram'\r\n  });\r\n};\r\n",
+        "code": "var graph_name = 'http://huginn.culturecreates.com/capacoa-members' ;\r\nvar name = 'CAPACOA Members' ;\r\nvar url =  'https://test.capacoa.ca' ;\r\nvar wasAttributedToToolUri = 'adr:K1-9' ;\r\nvar wasAttributedToOrgUri = 'adr:K1-5';\r\nvar wasDerivedFromUri = 'https://huginn-staging.herokuapp.com/scenarios/11/diagram' ;\r\n\r\n\r\nAgent.receive = function() {\r\n  this.createEvent({ \r\n    'graph_name':graph_name,\r\n    'name': name,\r\n    'url': url,\r\n    'wasAttributedToToolUri': wasAttributedToToolUri,\r\n    'wasAttributedToOrgUri': wasAttributedToOrgUri,\r\n    'wasDerivedFromUri': wasDerivedFromUri\r\n  });\r\n};\r\n\r\nAgent.check = function() {\r\n    this.createEvent({\r\n     'graph_name':graph_name,\r\n    'name': name,\r\n    'url': url,\r\n    'wasAttributedToToolUri': wasAttributedToToolUri,\r\n    'wasAttributedToOrgUri': wasAttributedToOrgUri,\r\n    'wasDerivedFromUri': wasDerivedFromUri\r\n    });\r\n};\r\n",
         "expected_receive_period_in_days": "265",
         "expected_update_period_in_days": "265"
       },
-      "schedule": "never",
-      "keep_events_for": 3600,
+      "schedule": "4pm",
+      "keep_events_for": 604800,
       "propagate_immediately": true
     },
     {
@@ -150,7 +151,7 @@
     },
     {
       "type": "Agents::PostAgent",
-      "name": "POST to Artsdata Databus",
+      "name": "POST to Artsdata Databus CAPACOA",
       "disabled": false,
       "guid": "7677ce2e20c0a72d2936dbc5e0c16e15",
       "options": {
@@ -162,10 +163,10 @@
           "publisher": "https://saumier.github.io/gregory-saumier-finch.ttl%23this",
           "group": "huginn",
           "artifact": "capacoa-members",
-          "version": "1",
-          "downloadUrl": "https://db.artsdata.ca/repositories/raw/statements?context=%3Chttp%3A%2F%2Fhuginn.culturecreates.com%2Fcapacoa-members%3E",
+          "version": "{{ 'now' | date: '%Y-%m-%dT%H-%M-%S' }}",
+          "downloadUrl": "http://99.79.129.47/repositories/raw/statements?context=%3Chttp%3A%2F%2Fhuginn.culturecreates.com%2Fcapacoa-members%3E",
           "downloadFile": "capacoa-members.ttl",
-          "reportCallbackUrl": "",
+          "reportCallbackUrl": "https://footlight-condenser.herokuapp.com/messages/webhook.json?artifact=capacoa-members",
           "comment": "CAPACOA Member public metadata crawled from capacoa.ca",
           "shacl": ""
         },
@@ -178,8 +179,33 @@
         "output_mode": "merge"
       },
       "schedule": "never",
-      "keep_events_for": 3600,
+      "keep_events_for": 604800,
       "propagate_immediately": false
+    },
+    {
+      "type": "Agents::WebsiteAgent",
+      "name": "SPARQL: capacoa genres --> raw repository",
+      "disabled": false,
+      "guid": "7e960b801aafc5c9bfb0a463757cf976",
+      "options": {
+        "expected_update_period_in_days": "356",
+        "url": "https://raw.githubusercontent.com/culturecreates/sparql-library/master/artsdata/ETL/huginn/specific/add-capacoa-member-genres.sparql",
+        "type": "text",
+        "extract": {
+          "sparqlFormatted": {
+            "regexp": "\\A(?m:.)*\\z",
+            "index": "0"
+          }
+        },
+        "mode": "all",
+        "template": {
+          "sparql": "{{sparqlFormatted |  strip_newlines |    replace: \"graph_name_placeholder\", graph_name |       replace: \"uri_placeholder\", uri |                     replace: \"genre_placeholder\", genre  |                 replace: \"genre_uri\", genre_uri   }}",
+          "graph_name": "{{graph_name}}"
+        }
+      },
+      "schedule": "never",
+      "keep_events_for": 3600,
+      "propagate_immediately": true
     },
     {
       "type": "Agents::WebhookAgent",
@@ -191,7 +217,8 @@
         "expected_receive_period_in_days": "300",
         "payload_path": "some_key",
         "event_headers": "",
-        "event_headers_key": "headers"
+        "event_headers_key": "headers",
+        "response": "Reload of CAPACOA database started. You can close this window."
       },
       "keep_events_for": 0
     },
@@ -237,7 +264,7 @@
     },
     {
       "type": "Agents::EventFormattingAgent",
-      "name": "Format fields",
+      "name": "CAPACOA Format most fields",
       "disabled": false,
       "guid": "8a266dc8d4e4dde8cb43f2055bc41bf4",
       "options": {
@@ -257,8 +284,7 @@
           "primary_activity": "{{ primary_activity  | default: \"empty\" }}",
           "presenting_format": "{{ presenting_format  | default: \"empty\"  }}",
           "terms_conditions_v1_0": "{{ terms_conditions_v1_0   | default: \"empty\" }}",
-          "wikidata_id": "{{ wikidata_id_matched.id  }}",
-          "discipline_genre": "{{ discipline_genre  | json | replace: '\"' ,'' }}"
+          "wikidata_id": "{{ wikidata_id_matched.id  }}"
         },
         "matchers": [
           {
@@ -283,9 +309,28 @@
         "keep": "newest",
         "max_emitted_events": "1"
       },
-      "schedule": "every_1m",
+      "schedule": "every_2m",
       "keep_events_for": 3600,
       "propagate_immediately": false
+    },
+    {
+      "type": "Agents::EventFormattingAgent",
+      "name": "Format fields for Genre ",
+      "disabled": false,
+      "guid": "a63bf85b5d9e67fddc8cdb8292208c8e",
+      "options": {
+        "instructions": {
+          "graph_name": "{{graph_name}}",
+          "uri": "https://capacoa.ca/member/{{id}}",
+          "genre_uri": "{{ genre  | default: \"empty\" |  url_encode | replace: '+', '%20'  }}"
+        },
+        "matchers": [
+
+        ],
+        "mode": "merge"
+      },
+      "keep_events_for": 3600,
+      "propagate_immediately": true
     },
     {
       "type": "Agents::WebsiteAgent",
@@ -294,7 +339,10 @@
       "guid": "ad5acd6232da58f7c67da1f255a50761",
       "options": {
         "expected_update_period_in_days": "2",
-        "url": "https://capacoa.ca/wp-json/wp/v2/users?per_page=100",
+        "url": [
+          "https://capacoa.ca/wp-json/wp/v2/users?per_page=100",
+          "https://capacoa.ca/wp-json/wp/v2/users?per_page=100&offset=100"
+        ],
         "type": "json",
         "mode": "all",
         "extract": {
@@ -364,8 +412,8 @@
           "wikidata_id_venue_other": {
             "path": "[*].usermeta.wikidata_id_venue_other"
           },
-          "terms_conditions_v1_0": {
-            "path": "[*].usermeta.terms_conditions_v1_0"
+          "terms_conditions": {
+            "path": "[*].usermeta.terms_conditions"
           },
           "pmpro_bcountry": {
             "path": "[*].usermeta.pmpro_bcountry"
@@ -398,7 +446,8 @@
         "expected_receive_period_in_days": "300",
         "payload_path": "some_key",
         "event_headers": "",
-        "event_headers_key": "headers"
+        "event_headers_key": "headers",
+        "response": "Reloading data from Wikidata about CAPACOA members.  You can close this window."
       },
       "keep_events_for": 0
     },
@@ -423,8 +472,23 @@
         }
       },
       "schedule": "never",
-      "keep_events_for": 3600,
+      "keep_events_for": 604800,
       "propagate_immediately": false
+    },
+    {
+      "type": "Agents::JavaScriptAgent",
+      "name": "Extract nested Genres",
+      "disabled": false,
+      "guid": "d58d4e613acb5a456d229725c12dc458",
+      "options": {
+        "language": "JavaScript",
+        "code": "\r\n\r\nAgent.receive = function() {\r\n  var events = this.incomingEvents();\r\n  for(var i = 0; i < events.length; i++) {\r\n    var genres =  events[i].payload.discipline_genre\r\n    for(var x = 0; x < genres.length; x++) {\r\n      this.createEvent({ \r\n        'genre':genres[x], \r\n        'id':events[i].payload.id, \r\n        'graph_name':events[i].payload.graph_name\r\n      });\r\n    }\r\n    \r\n  }\r\n}",
+        "expected_receive_period_in_days": "2",
+        "expected_update_period_in_days": "2"
+      },
+      "schedule": "never",
+      "keep_events_for": 3600,
+      "propagate_immediately": true
     },
     {
       "type": "Agents::EventFormattingAgent",
@@ -447,7 +511,7 @@
   "links": [
     {
       "source": 0,
-      "receiver": 16
+      "receiver": 18
     },
     {
       "source": 2,
@@ -455,70 +519,86 @@
     },
     {
       "source": 3,
-      "receiver": 16
+      "receiver": 18
     },
     {
-      "source": 6,
+      "source": 5,
       "receiver": 4
     },
     {
       "source": 6,
-      "receiver": 17
+      "receiver": 20
     },
     {
       "source": 6,
-      "receiver": 14
+      "receiver": 16
     },
     {
       "source": 7,
-      "receiver": 12
+      "receiver": 19
     },
     {
-      "source": 9,
-      "receiver": 6
-    },
-    {
-      "source": 10,
-      "receiver": 8
-    },
-    {
-      "source": 11,
-      "receiver": 2
-    },
-    {
-      "source": 11,
+      "source": 7,
       "receiver": 13
     },
     {
-      "source": 12,
-      "receiver": 11
-    },
-    {
-      "source": 13,
-      "receiver": 0
-    },
-    {
-      "source": 13,
-      "receiver": 3
-    },
-    {
-      "source": 13,
-      "receiver": 10
-    },
-    {
-      "source": 14,
-      "receiver": 7
-    },
-    {
-      "source": 15,
-      "receiver": 5
-    },
-    {
-      "source": 16,
+      "source": 9,
       "receiver": 2
     },
     {
+      "source": 10,
+      "receiver": 6
+    },
+    {
+      "source": 11,
+      "receiver": 8
+    },
+    {
+      "source": 12,
+      "receiver": 2
+    },
+    {
+      "source": 12,
+      "receiver": 14
+    },
+    {
+      "source": 13,
+      "receiver": 12
+    },
+    {
+      "source": 14,
+      "receiver": 0
+    },
+    {
+      "source": 14,
+      "receiver": 3
+    },
+    {
+      "source": 14,
+      "receiver": 11
+    },
+    {
+      "source": 15,
+      "receiver": 9
+    },
+    {
+      "source": 16,
+      "receiver": 7
+    },
+    {
       "source": 17,
+      "receiver": 5
+    },
+    {
+      "source": 18,
+      "receiver": 2
+    },
+    {
+      "source": 19,
+      "receiver": 15
+    },
+    {
+      "source": 20,
       "receiver": 2
     }
   ],
