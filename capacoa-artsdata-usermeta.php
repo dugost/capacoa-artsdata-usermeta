@@ -39,6 +39,7 @@ function get_user_meta_for_restapi($user, $field_name, $request) {
     'presenting_format' => $userObj->presenting_format,
 		'website_official' => $userObj->website_official,
     'events_page' => $userObj->events_page,
+    'artsdata_id' => $userObj->artsdata_id,
     'wikidata_id' => $userObj->wikidata_id,
     'venue_name' => $userObj->venue_name,
     'venue_relationship' => $userObj->venue_relationship,
