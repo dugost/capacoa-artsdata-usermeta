@@ -52,6 +52,7 @@ function get_user_meta_for_restapi($user, $field_name, $request) {
 		'pmpro_bcountry' => $userObj->pmpro_bcountry,
 		'pmpro_bcity' => $userObj->pmpro_bcity,
 		'pmpro_bstate' => $userObj->pmpro_bstate,
+	    	'pmpro_membership_levels' => $userObj->pmpro_membership_levels,
     );
 }
 
