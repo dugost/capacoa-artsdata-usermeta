@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: CAPACOA Usermeta for Artsdata.ca
-Version: 1.0.4
+Version: 2.0.0
 Description: This is a Wordpress plugin that enables WP meta data so CAPACOA member organizations can be uploaded to Artsdata.
 Author: Culture Creates
 Author URI: https://culturecreates.com/
