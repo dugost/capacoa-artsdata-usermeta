@@ -55,6 +55,8 @@ function get_user_meta_for_restapi($user, $field_name, $request) {
 		'pmpro_approval_12' => $userObj->pmpro_approval_12,
 		'pmpro_approval_13' => $userObj->pmpro_approval_13,
 	    	'description' => $userObj->description,
+	    	'description_fr' => $userObj->description_fr,
+	    	'MemberTerminationDate' => $userObj->MemberTerminationDate,
     );
 }
 
