@@ -54,9 +54,10 @@ function get_user_meta_for_restapi($user, $field_name, $request) {
 		'pmpro_bstate' => $userObj->pmpro_bstate,
 		'pmpro_approval_12' => $userObj->pmpro_approval_12,
 		'pmpro_approval_13' => $userObj->pmpro_approval_13,
-	    'member_description_en' => $userObj->member_description_en,
-	    'member_description_fr' => $userObj->member_description_fr,
-	    'MemberTerminationDate' => $userObj->MemberTerminationDate,
+	    	'member_description_en' => $userObj->member_description_en,
+	    	'member_description_fr' => $userObj->member_description_fr,
+	   	'MemberTerminationDate' => $userObj->MemberTerminationDate,
+	   	'type' => $userObj->type,
     );
 }
 
