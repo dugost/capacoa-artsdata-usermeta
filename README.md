@@ -8,4 +8,13 @@ Here is an example call to get a list of 50 users:
 
 `GET /wp-json/wp/v2/users?per_page=50`
 
-The data can be automatcially refreshed using Artsdata admin buttons available on [this page](https://capacoa.ca/en/artsdata-admin/).
+# Pipeline to Artsdata
+
+The data made available from this Wordpress plugin is used by the data pipeline in the artsdata-planet-capacoa repository.
+https://github.com/culturecreates/artsdata-planet-capacoa
+
+
+# CAPACOA member directory webpage
+
+The CAPACOA member directory displays data from Artsdata using the following Wordpress short-code plugin
+https://github.com/culturecreates/artsdata-shortcode
